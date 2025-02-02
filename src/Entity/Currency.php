@@ -44,9 +44,11 @@ class Currency
         return $this->numericCode;
     }
 
-    public function setNumericCode(string $numericCode): void
+    public function setNumericCode(string $numericCode): self
     {
         $this->numericCode = $numericCode;
+
+        return $this;
     }
 
     public function getAlphaCode(): string
@@ -54,9 +56,11 @@ class Currency
         return $this->alphaCode;
     }
 
-    public function setAlphaCode(string $alphaCode): void
+    public function setAlphaCode(string $alphaCode): self
     {
         $this->alphaCode = $alphaCode;
+
+        return $this;
     }
 
     public function getCode(): string
@@ -64,9 +68,11 @@ class Currency
         return $this->code;
     }
 
-    public function setCode(string $code): void
+    public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
     }
 
     public function getName(): string
@@ -74,9 +80,11 @@ class Currency
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
     public function getRate(): float
@@ -84,9 +92,11 @@ class Currency
         return $this->rate;
     }
 
-    public function setRate(float $rate): void
+    public function setRate(float $rate): self
     {
         $this->rate = $rate;
+
+        return $this;
     }
 
     public function getInverseRate(): float
@@ -94,9 +104,11 @@ class Currency
         return $this->inverseRate;
     }
 
-    public function setInverseRate(float $inverseRate): void
+    public function setInverseRate(float $inverseRate): self
     {
         $this->inverseRate = $inverseRate;
+
+        return $this;
     }
 
     public function getDate(): DateTimeImmutable
@@ -104,8 +116,10 @@ class Currency
         return $this->date;
     }
 
-    public function setDate(DateTimeImmutable $date): void
+    public function setDate(DateTimeImmutable $date): self
     {
         $this->date = $date;
+
+        return $this;
     }
 }
