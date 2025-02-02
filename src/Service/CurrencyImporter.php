@@ -82,7 +82,6 @@ class CurrencyImporter
     private function createEntity(array $currencyData): Currency
     {
         $entity = (new Currency())
-            ->setName($currencyData['name'])
             ->setCode($currencyData['code'])
             ->setAlphaCode($currencyData['alphaCode'])
             ->setNumericCode($currencyData['numericCode']);
@@ -98,6 +97,7 @@ class CurrencyImporter
         $entity
             ->setInverseRate($currencyData['inverseRate'])
             ->setRate($currencyData['rate'])
+            ->setName($currencyData['name'])
             ->setDate($date);
     }
 }
