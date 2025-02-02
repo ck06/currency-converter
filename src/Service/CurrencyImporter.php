@@ -84,7 +84,7 @@ class CurrencyImporter
         $entity = (new Currency())
             ->setName($currencyData['name'])
             ->setCode($currencyData['code'])
-            ->setAlphaCode($currencyData['alpha_code'])
+            ->setAlphaCode($currencyData['alphaCode'])
             ->setNumericCode($currencyData['numericCode']);
 
         $this->updateEntity($entity, $currencyData);
