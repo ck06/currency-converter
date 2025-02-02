@@ -54,30 +54,30 @@ class CurrencyImportTask extends Command
         return sprintf('https://www.floatrates.com/daily/%s.json', strtolower($code));
     }
 
-    private function getData(string $code): string
+    private function getData(string $code): array
     {
         $response = $this->scraper->request('GET', $this->getUrl($code));
         if ($response->getStatusCode() !== 200) {
             throw new NotFoundHttpException('Unable to import - target URL unavailable');
         }
 
-        return $response->getContent();
+        return json_decode($response->getContent());
     }
 
     private function process(string $code, ?string $target): void
     {
-        $content = $this->getData($code);
+        $json = $this->getData($code);
         if ($target !== null) {
-            $this->importer->importOne($content, $target);
+            $this->importer->importOne($json, $target);
         } else {
-            $this->importer->importAll($content);
+            $this->importer->importAll($json);
         }
     }
 
     private function processDefault(string $target): void
     {
         $code = $target === 'EUR' ? 'USD' : 'EUR';
-        $content = $this->getData($code);
-        $this->importer->createDefault($content, $target);
+        $json = $this->getData($code);
+        $this->importer->importDefault($json, $target);
     }
 }
