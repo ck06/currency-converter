@@ -27,9 +27,7 @@ class CurrencyFixture extends Fixture
                 id: $current['id'],
                 code: $current['code'],
                 name: $current['name'],
-                rate: $curren        $data = self::currencyData();
-        $max = count($data);
-t['rate'],
+                rate: $current['rate'],
             );
 
             $this->manager->persist($currency);
