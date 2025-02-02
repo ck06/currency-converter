@@ -6,6 +6,7 @@ namespace App\Command;
 
 use App\Service\CurrencyImporter;
 use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,7 +22,7 @@ class CurrencyImportTask extends Command
     public function __construct(
         private HttpClientInterface $scraper,
         private CurrencyImporter $importer,
-        private Logger $logger,
+        private LoggerInterface $logger,
     ) {
         parent::__construct();
     }
