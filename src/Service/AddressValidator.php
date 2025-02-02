@@ -33,7 +33,7 @@ class AddressValidator
         return implode('.', $filteredChunks);
     }
 
-    private function determineCidr(string $input): int
+    public function determineCidr(string $input): int
     {
         $cidrChunks = explode('/', $input, 2);
         if (count($cidrChunks) === 2) {

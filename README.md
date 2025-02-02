@@ -7,7 +7,19 @@ By default, the database is accessible via `localhost:3306`.
 The database files are stored locally at `{projectRoot}/docker/database/data`.  
 Login credentials can be found in the .env file.
 
-By default, the webpage is accessible via `localhost:8080`.
+# Usage (browser): 
+By default, the webpage is accessible via `localhost:8080`.  
+The following routes exist:  
+* `/` - the currency converter
+  * You must be logged in to access this route
+  * If you're not logged in, you will be redirected to...
+* `/login`
+  * Will redirect you to the currency converter page after successfully logging in
+  * Also contains a logout button if you manually navigate back to this page
+* `/logout`
+* `/admin`
+  * You must be logged in as an admin to access this route
+  * This page contains no functionality and is only included to showcase the firewall
 
 # Usage (console):
 **For development and testing, consider using fixture data instead. You can populate the database with these via `doctrine:fixtures:load`**
