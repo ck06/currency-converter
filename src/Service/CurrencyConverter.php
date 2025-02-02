@@ -16,28 +16,49 @@ class CurrencyConverter
     {
     }
 
+    public function convertOne(int|string|Currency $from, int|string|Currency $to, float $amount): CurrencyDto
+    {
+        $from = $this->getEntity($from);
+        $to = $this->getEntity($to);
+
+        $convertedAmount = $amount * $from->getInverseRate() * $to->getRate();
+
+        return new CurrencyDto($to->getCode(), $convertedAmount);
+    }
+
     /**
      * @return array<CurrencyDto>
      */
-    public function convert(string|Currency $from, float $amount): array
+    public function convertAll(int|string|Currency $from, float $amount): array
     {
-        /** @var CurrencyRepository $repository */
-        $repository = $this->em->getRepository(Currency::class);
-        $fromEntity = $from instanceof Currency ? $from : $repository->findByCode($from);
-        if (!$fromEntity instanceof Currency) {
-            throw new InvalidArgumentException(sprintf('No available data for currency with code %s', $from));
-        }
+        $from = $this->getEntity($from);
 
         /** @var array<Currency> $currencies */
-        $currencies = $repository->findAll();
+        $currencies = $this->em->getRepository(Currency::class)->findAll();
 
         return array_map(
-            static function (Currency $toEntity) use ($amount, $fromEntity) {
-                $convertedAmount = $amount * $fromEntity->getInverseRate() * $toEntity->getRate();
+            static function (Currency $to) use ($amount, $from) {
+                $convertedAmount = $amount * $from->getInverseRate() * $to->getRate();
 
-                return new CurrencyDto($toEntity->getCode(), $convertedAmount);
+                return new CurrencyDto($to->getCode(), $convertedAmount);
             },
-            $currencies
+            $currencies,
         );
+    }
+
+    private function getEntity(int|string|Currency $id): Currency
+    {
+        if ($id instanceof Currency) {
+            return $id;
+        }
+
+        /** @var CurrencyRepository $repository */
+        $repository = $this->em->getRepository(Currency::class);
+        $entity = $repository->findById($id);
+        if (!$entity instanceof Currency) {
+            throw new InvalidArgumentException(sprintf('No available data for currency with id %s', $from));
+        }
+
+        return $entity;
     }
 }
