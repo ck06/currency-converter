@@ -52,11 +52,15 @@ class CurrencyConverter
             return $id;
         }
 
+        if (is_int($id)) {
+            $id = mb_str_pad((string)$id, 3, '0', STR_PAD_LEFT);
+        }
+
         /** @var CurrencyRepository $repository */
         $repository = $this->em->getRepository(Currency::class);
         $entity = $repository->findById($id);
         if (!$entity instanceof Currency) {
-            throw new InvalidArgumentException(sprintf('No available data for currency with id %s', $from));
+            throw new InvalidArgumentException(sprintf('No available data for currency with id %s', $id));
         }
 
         return $entity;
