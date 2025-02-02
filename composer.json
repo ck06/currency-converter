@@ -16,6 +16,7 @@
         "symfony/form": "7.2.*",
         "symfony/framework-bundle": "*",
         "symfony/http-client": "7.2.*",
+        "symfony/monolog-bundle": "^3.10",
         "symfony/proxy-manager-bridge": "*",
         "symfony/runtime": "*",
         "symfony/security-bundle": "7.2.*",
