@@ -65,6 +65,8 @@ class CurrencyImportTask extends Command
                 $this->getName(),
                 $e->getMessage(),
             ));
+
+            return self::FAILURE;
         }
 
         return self::SUCCESS;
