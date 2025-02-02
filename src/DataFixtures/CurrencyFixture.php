@@ -25,7 +25,7 @@ class CurrencyFixture extends Fixture
         $data = self::currencyData();
         $max = count($data);
         for ($i = 1; $i <= $max; $i++) {
-            $current = $data[$i-1];
+            $current = $data[$i - 1];
             $currency = $this->createCurrency(
                 id: $i,
                 code: $current['code'],
@@ -56,23 +56,28 @@ class CurrencyFixture extends Fixture
                 'code' => 'EUR',
                 'name' => 'European Euro',
                 'rate' => 1.0,
-            ], [
+            ],
+            [
                 'code' => 'USD',
                 'name' => 'American Dollar',
                 'rate' => 2.0,
-            ], [
+            ],
+            [
                 'code' => 'CAD',
                 'name' => 'Canadian Dollar',
                 'rate' => 4.5,
-            ], [
+            ],
+            [
                 'code' => 'JPY',
                 'name' => 'Japanese Yen',
                 'rate' => 100,
-            ], [
+            ],
+            [
                 'code' => 'KRW',
                 'name' => 'Korean Won',
                 'rate' => 1000,
-            ], [
+            ],
+            [
                 'code' => 'PHP',
                 'name' => 'PHP: Hypertext Preprocessor',
                 'rate' => 0.333333333333,
