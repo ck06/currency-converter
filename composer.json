@@ -16,6 +16,7 @@
         "symfony/framework-bundle": "*",
         "symfony/proxy-manager-bridge": "*",
         "symfony/runtime": "*",
+        "symfony/twig-bundle": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {
