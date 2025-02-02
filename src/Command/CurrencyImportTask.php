@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Service\CurrencyImporter;
+use Monolog\Logger;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,12 +13,16 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Throwable;
 
 #[AsCommand(name: 'app:currency:import', description: 'Update currency data based on third party json file')]
 class CurrencyImportTask extends Command
 {
-    public function __construct(private HttpClientInterface $scraper, private CurrencyImporter $importer)
-    {
+    public function __construct(
+        private HttpClientInterface $scraper,
+        private CurrencyImporter $importer,
+        private Logger $logger,
+    ) {
         parent::__construct();
     }
 
@@ -41,9 +46,25 @@ class CurrencyImportTask extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $code = $input->getOption('from');
+        $to = $input->getOption('to');
 
-        $this->process($code, $input->getOption('to'));
-        $this->processDefault($code);
+        $this->logger->info(sprintf(
+            '[%s] Importing for %s %s',
+            $this->getName(),
+            $code,
+            $to === null ? '' : sprintf('(only importing %s)', $to)
+        ));
+
+        try {
+            $this->process($code, $to);
+            $this->processDefault($code);
+        } catch (Throwable $e) {
+            $this->logger->error(sprintf(
+                '[%s] An error occurred while executing the task: %s',
+                $this->getName(),
+                $e->getMessage(),
+            ));
+        }
 
         return self::SUCCESS;
     }
@@ -57,6 +78,7 @@ class CurrencyImportTask extends Command
     {
         $response = $this->scraper->request('GET', $this->getUrl($code));
         if ($response->getStatusCode() !== 200) {
+            $this->logger->warning(sprintf('[%s] Feed for currency %s is not available', $this->getName(), $code));
             throw new NotFoundHttpException('Unable to import - target URL unavailable');
         }
 

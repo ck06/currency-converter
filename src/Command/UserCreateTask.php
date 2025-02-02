@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
