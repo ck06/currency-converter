@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="mb-4">Currency Converter</h1>
+
+    {{ form_start(form) }}
+    <div class="mb-3">
+        {{ form_label(form.currencyChoice) }}
+        {{ form_widget(form.currencyChoice) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.currencyAmount) }}
+        {{ form_widget(form.currencyAmount) }}
+    </div>
+    {{ form_widget(form.submit) }}
+    {{ form_end(form) }}
+
+    {% if results is not empty %}
+        <div class="mt-4 p-3 bg-light rounded">
+            <h3>Results:</h3>
+            {% for result in results %}
+                {{ result.code }}: {{ result.value }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
