@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\CurrencyDto;
 use App\Entity\Currency;
 use App\Repository\CurrencyRepository;
 use App\Service\CurrencyConverter;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
-use HttpRuntimeException;
-use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -32,7 +28,7 @@ class CurrencyConverterController extends AbstractController
     ) {
     }
 
-    #[Route('/', name: 'currency-converter')]
+    #[Route('/', name: 'currency_converter')]
     public function load(Request $request): Response
     {
         $form = $this->getForm();
