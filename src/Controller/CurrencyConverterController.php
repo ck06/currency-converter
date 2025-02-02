@@ -7,7 +7,11 @@ namespace App\Controller;
 use App\Dto\CurrencyDto;
 use App\Entity\Currency;
 use App\Repository\CurrencyRepository;
+use App\Service\CurrencyConverter;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use HttpRuntimeException;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,8 +26,10 @@ class CurrencyConverterController extends AbstractController
     private const DROPDOWN = 'currencyChoice';
     private const INPUT = 'currencyAmount';
 
-    public function __construct(private EntityManagerInterface $em)
-    {
+    public function __construct(
+        private EntityManagerInterface $em,
+        private CurrencyConverter $converter,
+    ) {
     }
 
     #[Route('/', name: 'currency-converter')]
@@ -34,7 +40,7 @@ class CurrencyConverterController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $results = $this->getResultsFromInput($data[self::DROPDOWN], $data[self::INPUT]);
+            $results = $this->converter->convertAll($data[self::DROPDOWN], (float)$data[self::INPUT]);
         }
 
         return $this->render('converter/converter.html.twig', [
@@ -85,16 +91,5 @@ class CurrencyConverterController extends AbstractController
         }
 
         return $options;
-    }
-
-    /**
-     * @return array<CurrencyDto>
-     */
-    private function getResultsfromInput($from, $value): array
-    {
-        // TODO: process
-        return [
-            new CurrencyDto('test', (float)$value),
-        ];
     }
 }
