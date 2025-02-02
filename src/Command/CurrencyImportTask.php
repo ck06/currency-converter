@@ -60,7 +60,7 @@ class CurrencyImportTask extends Command
             throw new NotFoundHttpException('Unable to import - target URL unavailable');
         }
 
-        return json_decode($response->getContent());
+        return json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
     }
 
     private function process(string $code, ?string $target): void
