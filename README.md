@@ -10,6 +10,9 @@ Login credentials can be found in the .env file.
 By default, the webpage is accessible via `localhost:8080`.
 
 # Usage (console):
+**For development and testing, consider using fixture data instead. You can populate the database with these via `doctrine:fixtures:load`**
+
+---
 ### `app:currency:import`
 This command lets you import real data from floatrates.com  
 
@@ -21,5 +24,7 @@ Arguments can be given to modify behavior, these are:
 * `--to {currencyCode}` (default value: `NULL`)
   * if given, only updates the rates for this specific currency.
 
-**For development and testing, consider using fixture data instead.**  
-**You can populate the database with these via `doctrine:fixtures:load`**
+---
+### `app:user:create`
+This command lets you create a new user with a username:password combo.  
+It takes no arguments, and instead guides you through the process with several questions.

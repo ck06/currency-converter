@@ -21,7 +21,7 @@ class Whitelist
     /**
      * A length of 15 fits the whole range of 0.0.0.0 ~ 255.255.255.255
      * Subnet masks are automatically determined by absence of data;
-     * "192"         => "192/0"
+     * "192"         => "192/8"
      * "192.168"     => "192.168/16"
      * "192.168.0"   => "192.168.0/24"
      * "192.168.0.1" => "192.168.0.1" (no change)
