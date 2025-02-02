@@ -79,22 +79,22 @@ class Currency
         $this->name = $name;
     }
 
-    public function getRate(): ?float
+    public function getRate(): float
     {
         return $this->rate;
     }
 
-    public function setRate(?float $rate): void
+    public function setRate(float $rate): void
     {
         $this->rate = $rate;
     }
 
-    public function getInverseRate(): ?float
+    public function getInverseRate(): float
     {
         return $this->inverseRate;
     }
 
-    public function setInverseRate(?float $inverseRate): void
+    public function setInverseRate(float $inverseRate): void
     {
         $this->inverseRate = $inverseRate;
     }
