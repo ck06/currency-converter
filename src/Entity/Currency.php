@@ -99,12 +99,12 @@ class Currency
         $this->inverseRate = $inverseRate;
     }
 
-    public function getDate(): ?string
+    public function getDate(): DateTimeImmutable
     {
         return $this->date;
     }
 
-    public function setDate(?string $date): void
+    public function setDate(DateTimeImmutable $date): void
     {
         $this->date = $date;
     }
