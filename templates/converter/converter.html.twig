@@ -1,34 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="rounded container-l bg-light m-5 p-3 pt-1">
-        <h1 class="mb-4 text-center">Currency Converter</h1>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="rounded container-l bg-light m-5 p-3 pt-1">
+            <h1 class="mb-4 text-center">Currency Converter</h1>
 
-        {{ form_start(form) }}
-        <div class="mb-2">
-            {{ form_label(form.currencyChoice) }}
-            {{ form_widget(form.currencyChoice) }}
+            {{ form_start(form) }}
+            <div class="mb-2">
+                {{ form_label(form.currencyChoice) }}
+                {{ form_widget(form.currencyChoice) }}
+            </div>
+            <div class="mb-2">
+                {{ form_label(form.currencyAmount) }}
+                {{ form_widget(form.currencyAmount) }}
+            </div>
+            {{ form_widget(form.submit) }}
+            {{ form_end(form) }}
         </div>
-        <div class="mb-2">
-            {{ form_label(form.currencyAmount) }}
-            {{ form_widget(form.currencyAmount) }}
-        </div>
-        {{ form_widget(form.submit) }}
-        {{ form_end(form) }}
-    </div>
 
-    {% if results is not empty %}
-        <div class="row row-cols-4 g-3 text-center mx-4 px-3">
-            {% for result in results %}
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ result.code }}</h3>
-                            <p class="card-text">{{ result.value|number_format(2, '.', ',') }}</p>
+        {% if results is not empty %}
+            <div class="col row row-cols-4 g-3 text-center mx-4 px-3">
+                {% for result in results %}
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ result.code }}</h3>
+                                <p class="card-text">{{ result.value|number_format(2, '.', ',') }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
