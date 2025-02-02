@@ -33,7 +33,7 @@ class Currency
     #[ORM\Column(type: 'float')]
     private float $inverseRate = 0.0;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $date;
 
     public function __construct()
