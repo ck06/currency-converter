@@ -15,6 +15,6 @@ class AdminController extends AbstractController
     #[Route('/admin', name: 'admin')]
     public function load(Request $request): Response
     {
-        return new JsonResponse();
+        return $this->render('converter/admin.html.twig', []);
     }
 }
