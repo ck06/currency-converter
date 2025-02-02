@@ -17,15 +17,17 @@
         "symfony/http-client": "7.2.*",
         "symfony/proxy-manager-bridge": "*",
         "symfony/runtime": "*",
+        "symfony/security-bundle": "7.2.*",
         "symfony/twig-bundle": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpunit/phpunit": "^9.5",
+        "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "*",
         "symfony/css-selector": "*",
+        "symfony/maker-bundle": "^1.62",
         "symfony/phpunit-bridge": "*"
     },
     "config": {
