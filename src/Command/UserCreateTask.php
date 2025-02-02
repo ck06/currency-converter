@@ -29,21 +29,21 @@ class UserCreateTask extends Command
         $this->io = new SymfonyStyle($input, $output);
         $this->io->title('User creation task');
 
-        $username = $this->getUsername();
+        $username = $this->askUsername();
         $user = $this->getUser($username);
-        if ($user instanceof User && !$this->confirmOverwrite()) {
+        if ($user instanceof User && !$this->askConfirmOverwrite()) {
             return self::SUCCESS;
         }
 
-        $password = $this->getPassword();
-        $roles = $this->getAdminPermission() ? ['ROLE_ADMIN'] : [];
+        $password = $this->askPassword();
+        $roles = $this->askAdminPermission() ? ['ROLE_ADMIN'] : [];
 
         $this->createOrUpdateUser($username, $password, $roles, $user);
 
         return self::SUCCESS;
     }
 
-    private function getUsername(): string
+    private function askUsername(): string
     {
         return $this->io->ask(
             question: 'Username',
@@ -58,12 +58,12 @@ class UserCreateTask extends Command
         );
     }
 
-    private function confirmOverwrite(): bool
+    private function askConfirmOverwrite(): bool
     {
         return $this->io->confirm('This user already exists, do you want to update it?');
     }
 
-    private function getPassword(): string
+    private function askPassword(): string
     {
         return $this->io->askHidden(
             question: 'Password',
@@ -77,7 +77,7 @@ class UserCreateTask extends Command
         );
     }
 
-    private function getAdminPermission(): bool
+    private function askAdminPermission(): bool
     {
         // we use ask() over confirm() here for validation purposes; you MUST write the answer in full.
         $answer = $this->io->ask(
@@ -97,7 +97,7 @@ class UserCreateTask extends Command
 
         $this->io->warning('You must enter your answer in full.');
 
-        return $this->getAdminPermission();
+        return $this->askAdminPermission();
     }
 
     private function getUser(string $username): ?User
