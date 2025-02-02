@@ -9,12 +9,17 @@ use App\Service\Inverter;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixture extends Fixture
 {
     private ObjectManager $manager;
 
     public const REFERENCE_PREFIX = 'user_';
+
+    public function __construct(private UserPasswordHasherInterface $hasher)
+    {
+    }
 
     public function load(ObjectManager $manager): void
     {
@@ -29,8 +34,9 @@ class UserFixture extends Fixture
     {
         $user = (new User())
             ->setUsername('user')
-            ->setPassword('picobello')
             ->setRoles([]);
+
+        $user->setPassword($this->hasher->hashPassword($user, 'picobello'));
 
         echo "Created user with username 'user' and password 'picobello'".PHP_EOL;
 
@@ -42,8 +48,9 @@ class UserFixture extends Fixture
     {
         $admin = (new User())
             ->setUsername('admin')
-            ->setPassword('picobello')
-            ->setRoles([]);
+            ->setRoles(['ROLE_ADMIN']);
+
+        $admin->setPassword($this->hasher->hashPassword($admin, 'picobello'));
 
         echo "Created user with username 'admin' and password 'picobello'".PHP_EOL;
 
