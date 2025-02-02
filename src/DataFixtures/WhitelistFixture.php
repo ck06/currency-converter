@@ -37,7 +37,7 @@ class WhitelistFixture extends Fixture implements DependentFixtureInterface
 
     private function createWhitelist(User $user): void
     {
-        $addresses = ['127.0.0.1'];
+        $addresses = ['127.0.0.1', '172.18'];
         foreach ($addresses as $address) {
             $whitelist = (new Whitelist())->setUser($user)->setAddress($address);
             $this->manager->persist($whitelist);
