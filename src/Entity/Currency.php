@@ -7,16 +7,19 @@ use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CurrencyRepository::class)]
+#[ORM\Index(columns: ['numeric_code'])]
+#[ORM\Index(columns: ['alpha_code'])]
+#[ORM\Index(columns: ['code'])]
 class Currency
 {
     #[ORM\Id]
-    #[ORM\Column(type: 'string', length: 3)]
+    #[ORM\Column(name: 'numeric_code', type: 'string', length: 3)]
     private string $numericCode = "";
 
-    #[ORM\Column(type: 'string', length: 3)]
+    #[ORM\Column(name: 'alpha_code', type: 'string', length: 3)]
     private string $alphaCode = "";
 
-    #[ORM\Column(type: 'string', length: 3)]
+    #[ORM\Column(name: 'code', type: 'string', length: 3)]
     private string $code = "";
 
     #[ORM\Column(type: 'string', length: 255)]
