@@ -47,3 +47,8 @@ This command lets you add and remove IP addresses (and ranges) to a user.
 It takes no arguments, and instead guides you through the process with several questions.  
 While there is no limit to how many addresses can be on a user, there is a limit of adding ~250 at a time. 
 This is because the command makes use of recursion to keep asking the same questions, and eventually you'll hit a cap.
+
+# Tests
+
+PhpUnit is included to run tests with.  
+You can execute these by running `bin/phpunit` inside the container.
