@@ -31,13 +31,24 @@ class AddressValidatorTest extends TestCase
     public function ipAddresses(): array
     {
         return [
+            // happy path
             ['127.0.0.1', 32],
             ['127.0.0', 24],
             ['127.0', 16],
             ['127', 8],
+
+            // given cidr in address takes precedence
+            ['127.0.0.1/32', 32, '127.0.0.1'],
             ['127.0.0.1/24', 24, '127.0.0'],
             ['127.0.0.1/16', 16, '127.0'],
             ['127.0.0.1/8', 8, '127'],
+
+            // unsupported cidr in address gets ignored
+            ['127.0.0.1/64', 32, '127.0.0.1'],
+            ['127.0.0.1/255', 32, '127.0.0.1'],
+
+            // blank chunks get turned to 0
+            ['127...1', 32, '127.0.0.1'],
         ];
     }
 }
