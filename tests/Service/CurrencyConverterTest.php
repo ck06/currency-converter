@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class AddressValidatorTest extends TestCase
+class CurrencyConverterTest extends TestCase
 {
     private MockObject&EntityManagerInterface $em;
     private MockObject&CurrencyRepository $currencyRepository;
