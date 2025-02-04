@@ -15,7 +15,8 @@ class AddressValidator
             return '';
         }
 
-        $ipChunks = explode('.', $input, 5);
+        $ip = explode('/', $input, 2)[0];
+        $ipChunks = explode('.', $ip, 5);
         if (count($ipChunks) > 4) {
             throw new InvalidArgumentException("Invalid IPv4 address given.");
         }
@@ -37,7 +38,11 @@ class AddressValidator
     {
         $cidrChunks = explode('/', $input, 2);
         if (count($cidrChunks) === 2) {
-            return (int)$cidrChunks[1];
+            $supportedCidrs = [8, 16, 24, 32];
+            $cidr = (int)$cidrChunks[1];
+            if (in_array($cidr, $supportedCidrs)) {
+                return (int)$cidrChunks[1];
+            }
         }
 
         return 8 * count(explode('.', $input, 4));
