@@ -12,14 +12,17 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(name: 'app:user:create', description: 'Create a user')]
 class UserCreateTask extends Command
 {
     private SymfonyStyle $io;
 
-    public function __construct(private EntityManagerInterface $em)
-    {
+    public function __construct(
+        private EntityManagerInterface $em,
+        private UserPasswordHasherInterface $hasher
+    ) {
         parent::__construct();
     }
 
@@ -111,7 +114,7 @@ class UserCreateTask extends Command
         }
 
         $user
-            ->setPassword($password)
+            ->setPassword($this->hasher->hashPassword($user, $password))
             ->setRoles($roles);
 
         $this->em->persist($user);
